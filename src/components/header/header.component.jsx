@@ -4,7 +4,7 @@ import {AppBar, Toolbar, Typography} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-    appBar: {marginLeft: 240, width: `calc(100% - 240px)`}
+    appBar: {marginLeft: 240, width: `calc(100% - 240px)`, background: '#166fe5'}
 }));
 
 export default function Header() {

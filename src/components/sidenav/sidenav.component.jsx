@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState, useEffect } from "react";
 import './sidenav.styles.css';
 
 import { List, Drawer, ListItem, ListItemText, ListItemIcon } from "@material-ui/core";
@@ -14,20 +14,24 @@ const useStyles = makeStyles((theme) => ({
       },
     drawerPaper: {
         width: 240,
-        backgroundColor: "black",
-        color: "white"
+        backgroundColor: "white",
+        color: "black"
       }
 }));
 
 const sidenavItems = [
-    {"name":"Dashboard", "link": "/covid-dashboard","icon": <EqualizerIcon style={{ color: "green" }}/>},
-    {"name":"Countrywise stats", "link": "/covid-dashboard/countrywise-stats", "icon": <PublicIcon style={{ color: "green" }} />}
+    {"name":"Dashboard", "link": "/covid-dashboard","icon": <EqualizerIcon style={{ color: "black" }}/>},
+    {"name":"Countrywise stats", "link": "/covid-dashboard/countrywise-stats", "icon": <PublicIcon style={{ color: "black" }} />}
 ]
 
+
 export default function SideNav() {
+
     const classes = useStyles();
+    
+
     return (
-        <Drawer variant="permanent" open className={classes.drawer} classes={{paper: classes.drawerPaper}}>
+        <Drawer variant="permanent" open className={classes.drawer} classes={{paper: classes.drawerPaper}} >
             <List>
             {sidenavItems.map(navItem => 
                 <Link to={navItem.link}>

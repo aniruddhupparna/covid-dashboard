@@ -13,7 +13,8 @@
 .summary-block {
     width: 25%;
     padding: 20px;
-    color: white;
+    color: black;
+    background: white;
     box-shadow: 2px 2px 5px grey;
 }
 

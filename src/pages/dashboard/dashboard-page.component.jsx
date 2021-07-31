@@ -1,7 +1,20 @@
 import React from "react";
 import './dashboard-page.styles.css';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
-import { Paper } from "@material-ui/core";
+import BarGraph from "../../components/bar-graph/bar-graph.component";
+import LineGraph from "../../components/line-graph/line-graph.component";
+// import AreaGraph from "../../components/area-graph/area-graph.component";
+
+const todayBarGraphInfo = [
+  {dataKey: "todayCases", name: "New Confirmed", fill: "#0a3a79"},
+  {dataKey: "todayRecovered", name: "New Recovered", fill: "#3498db"},
+  {dataKey: "todayDeaths", name: "New Deaths", fill: "#5295ec"},
+]
+
+const totalBarGraphInfo = [
+  {dataKey: "cases", name: "Total Confirmed", fill: "#0a3a79"},
+  {dataKey: "recovered", name: "Total Recovered", fill: "#3498db"},
+  {dataKey: "deaths", name: "Total Deaths", fill: "#5295ec"},
+]
 
 
 export default class Dashboard extends React.Component {
@@ -52,77 +65,35 @@ export default class Dashboard extends React.Component {
     
   render(){
     const {totalConfirmedGraphData, newConfirmedGraphData, summary} = this.state;
-    // 100px offset 240px for sidenav
-    const pageWidth = window.innerWidth - 240 - 100;
+    
     return (
       <div className="dashboard-page-container">
         
           <div className="summary-container">
-              <div className="summary-block" style={{background: '#ff6682'}}>
+              <div className="summary-block">
                 <div className="title">Confirmed cases</div>
-                <div className="tite-text1"><div>Total </div><div>{summary.cases?.toLocaleString()}</div></div>
-                <div className="title-text2"><div>New </div><div>{summary.todayCases?.toLocaleString()}</div></div>
+                <div className="tite-text1" style={{color: '#0a3a79', fontWeight: 'bold'}}><div>Total </div><div>{summary.cases?.toLocaleString()}</div></div>
+                <div className="title-text2" style={{color: "#3498db", fontWeight: 'bold'}}><div>New </div><div>{summary.todayCases?.toLocaleString()}</div></div>
               </div>
-              <div className="summary-block" style={{background: '#3edabb'}}>
+              <div className="summary-block">
                 <div className="title">Recovered cases</div>
-                <div className="tite-text1"><div>Total </div><div>{summary.recovered?.toLocaleString()}</div></div>
-                <div className="title-text2"><div>New </div><div>{summary.todayRecovered?.toLocaleString()}</div></div>
+                <div className="tite-text1" style={{color: '#0a3a79', fontWeight: 'bold'}}><div>Total </div><div>{summary.recovered?.toLocaleString()}</div></div>
+                <div className="title-text2" style={{color: "#3498db", fontWeight: 'bold'}}><div>New </div><div>{summary.todayRecovered?.toLocaleString()}</div></div>
               </div>
-              <div className="summary-block" style={{background: '#ffbf65'}}>
+              <div className="summary-block">
                 <div className="title">Fatal cases</div>
-                <div className="tite-text1"><div>Total </div><div>{summary.deaths?.toLocaleString()}</div></div>
-                <div className="title-text2"><div>New </div><div>{summary.todayDeaths?.toLocaleString()}</div></div>
+                <div className="tite-text1" style={{color: '#0a3a79', fontWeight: 'bold'}}><div>Total </div><div>{summary.deaths?.toLocaleString()}</div></div>
+                <div className="title-text2" style={{color: "#3498db", fontWeight: 'bold'}}><div>New </div><div>{summary.todayDeaths?.toLocaleString()}</div></div>
               </div>
           </div>
           <div>
-          <Paper elevation={3}>
-          <h3>Today's statistics for top 10 affected countries</h3>
-          <BarChart
-            width={pageWidth}
-            height={300}
-            data={newConfirmedGraphData}
-            margin={{
-              top: 5,
-              right: 30,
-              left: 30,
-              bottom: 5,
-            }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="country" />
-            <YAxis tickFormatter={tick => tick.toLocaleString()}/>
-            <Tooltip formatter={(value) => new Intl.NumberFormat('en').format(value)} />          
-            <Legend iconType="circle"/>
-            <Bar dataKey="todayCases" name="New Confirmed" fill="#0a3a79" />
-            <Bar dataKey="todayRecovered" name="New Recovered" fill="#3498db" />
-            <Bar dataKey="todayDeaths" name="New Deaths" fill="#5295ec" />
-          </BarChart>
-          </Paper>
+            <BarGraph data={newConfirmedGraphData} title={"Today's statistics for top 10 affected countries"} dataKey="country" barInfo={todayBarGraphInfo}/>
           </div>
           <div style={{marginTop: 20}}>
-          <Paper elevation={3}>
-          <h3>Total statistics for top 10 affected countries</h3>
-          <BarChart
-            width={pageWidth}
-            height={300}
-            data={totalConfirmedGraphData}
-            margin={{
-              top: 5,
-              right: 30,
-              left: 30,
-              bottom: 5,
-            }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="country" />
-            <YAxis tickFormatter={tick => tick.toLocaleString()}/>
-            <Tooltip formatter={(value) => new Intl.NumberFormat('en').format(value)}/>
-            <Legend iconType="circle"/>
-            <Bar dataKey="cases" name="Total Confirmed" fill="#0a3a79" />
-            <Bar dataKey="recovered" name="Total Recovered" fill="#3498db" />
-            <Bar dataKey="deaths" name="Total Deaths" fill="#5295ec" />
-          </BarChart>
-          </Paper>
+            <BarGraph data={totalConfirmedGraphData} title={"Total statistics for top 10 affected countries"} dataKey="country" barInfo={totalBarGraphInfo}/>
+          </div>
+          <div style={{marginTop: 20}}>
+            <LineGraph data={totalConfirmedGraphData} title={"Cases per million people for top 10 affected countries"} dataKey="casesPerOneMillion" name="Cases per million people" stroke="0a3a79"/>
           </div>
         </div>
       );

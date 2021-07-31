@@ -75,7 +75,7 @@ export default class CountrywiseStats extends React.Component {
             <YAxis />
             <Tooltip formatter={(value) => value.toString().slice(0,10)}/>
             <Legend iconType="circle" verticalAlign="top" />
-            <Area type="monotone" dataKey="Active" stroke="#8884d8" fill="#8884d8" />
+            <Area type="monotone" dataKey="Active" stroke="#8884d8" fill="#0a3a79" />
           </AreaChart>
           </Paper>
           }

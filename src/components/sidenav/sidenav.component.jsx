@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import { React} from "react";
 import './sidenav.styles.css';
 
 import { List, Drawer, ListItem, ListItemText, ListItemIcon } from "@material-ui/core";
